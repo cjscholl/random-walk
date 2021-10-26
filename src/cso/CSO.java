@@ -46,13 +46,6 @@ public class CSO extends CSOBase {
         new Thread(this.pes).start();
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        ProcessModel context = new ProcessModel();
-        CSO cso = new CSO(context);
-        new Thread(cso).start();
-    }
+    
     
 }
