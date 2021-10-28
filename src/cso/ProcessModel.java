@@ -1,6 +1,7 @@
 /**
  * title: ProcessModel class
  * @author cjscholl
+ * @annotated wherbert
  * ver: 0.1.0
  * date: 09/21/21
  */
@@ -11,43 +12,74 @@ import net.jcip.annotations.*;
 
 @ThreadSafe
 public class ProcessModel {
-    private int x = 0;
-    private int y = 0;
-    private int steps = 0;
-    // TODO implement process model
-    // TODO implement 3 queues for pes, pgs, and sas messages/models
-    
-    public synchronized int getXCoordinate() {
-        return this.x;
-    }
-    
+    /**
+    * An integer instance variable to track the x coordinate.
+    */
+	private int x = 0;
+	/**
+ 	* An integer instance variable to track the y coordinate.
+	*/
+	private int y = 0;
+	/**
+ 	* An integer instance variable to track the amount of steps the pawn has taken.
+	*/
+	private int steps = 0;
+	// TODO implement process model
+	// TODO implement 3 queues for pes, pgs, and sas messages/models
+
+	/**
+ 	* A synchronized method to control the access of multiple threads
+ 	* to obtain the x coordinate
+	* @return the value of x
+	*/
+	public synchronized int getXCoordinate() {
+		return this.x;
+	}
+	/**
+ 	* A synchronized method to control the access of multiple threads
+ 	* to obtain the y coordinate
+	* @return the value of y
+	*/
     public synchronized int getYCoordinate() {
         return this.y;
     }
-    
+	/**
+ 	* A method to move the pawn East
+	*/
     public void moveEast() {
         takeStep(-1, 0);
     }
-    
+	/**
+ 	* A method to move the pawn West
+	*/
     public void moveWest() {
         takeStep(1, 0);
     }
-    
+	/**
+ 	* A method to move the pawn South
+	*/
     public void moveSouth() {
         takeStep(0, -1);
     }
-    
+	/**
+ 	* A method to move the pawn North
+	*/
     public void moveNorth() {
         takeStep(0, 1);
     }
-    
+    /**
+     * @param int, int The x and y coordinates of the pawn to update its location on the board
+     */
     private synchronized void updateLocation(int deltaX, int deltaY) {
             this.x = this.x + deltaX;
             this.y = this.y + deltaY;
             
             this.steps++; // track number of steps
     }
-    
+    /**
+     * @param int, int The x and y coordinates of the pawn to mark where the pawn
+     * has been and which square it will move to next
+     */
     private void takeStep (int deltaX, int deltaY) {
         /**
              * Each step is a square with x and y coordinates. Previously visited steps leave behind white squares. 
@@ -67,6 +99,9 @@ public class ProcessModel {
             StdDraw.show();
             StdDraw.pause(1000);
     }
+    /**
+     * Method to start the movement of the pawn
+     */
     public void startWalk() {
         /**
          * Set the x and y scale to the min-max of the same range. 
